@@ -69,3 +69,8 @@
 10. Create shopping cart and payment process.
    Customer: Customers want a smooth and secure checkout process with multiple payment options, shipping cost calculation so that they can purchase items easily and safely.
    Seller: As sellers, we want a secure payment system that processes transactions efficiently so that we can receive our earnings without issues.
+
+### Authentication process
+
+- Error Handling
+- Deploy to Vercel
