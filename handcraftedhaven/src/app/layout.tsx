@@ -20,7 +20,7 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
-  description: "Marketplace for handmade goods"
+  description: "A marketplace for artisans and crafters to showcase and sell their unique handcrafted items"
 };
 
 export default function RootLayout({
@@ -30,10 +30,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${poppins.variable} ${firaCode.variable}`}>
-        <main className="min-h-screen bg-background text-fg-light">
+      <body className={`${inter.variable} ${poppins.variable} ${firaCode.variable}`}>
+        <header className="bg-backgroundDark text-white py-4">
+          <div className="container mx-auto px-4 flex justify-between items-center">
+            <div className="text-2xl font-poppins font-bold">Handcrafted Haven</div>
+            <nav>
+              <ul className="flex space-x-6">
+                <li>Home</li>
+                <li>Products</li>
+                <li>Sellers</li>
+                <li>About</li>
+              </ul>
+            </nav>
+            <div className="flex space-x-4">
+              <button className="px-4 py-2 border border-electricBlue rounded">Login</button>
+              <button className="px-4 py-2 bg-neonPink rounded">Register</button>
+            </div>
+          </div>
+        </header>
+        <main>
+          {children}
         </main>
-        {children}
+        <footer className="bg-backgroundDark text-white py-8">
+          <div className="container mx-auto px-4 text-center">
+            <p>© 2025 Handcrafted Haven. All rights reserved.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );
