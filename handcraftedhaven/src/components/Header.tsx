@@ -1,1 +1,23 @@
+import Link from "next/link";
+import Nav from "./nav-links";
+import { Button } from "./ui/Button";
 
+export default function Header() {
+    return (
+        <header className="bg-backgroundDark text-white py-4">
+            <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center lg:justify-between space-y-4 lg:space-y-0">
+                
+                <Link className="text-2xl font-poppins font-bold" href="/home">Handcrafted Haven</Link>
+                
+                <Nav />
+
+                <div className="flex space-x-4">
+                    <Link href="/login" >
+                        <Button variant="login">Login</Button></Link>
+                    <Link href="/register" >
+                        <Button variant="register">Register</Button></Link>
+                </div>
+          </div>
+        </header>
+    );
+}
