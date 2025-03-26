@@ -1,3 +1,4 @@
+
 {
   "name": "handcraftedhaven",
   "version": "0.1.0",
@@ -11,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.6.0",
     "lucide-react": "^0.483.0",
     "mongoose": "^7.3.0",
     "next": "^15.2.3",
@@ -33,3 +35,6 @@
     "typescript": "^5.8.2"
   }
 }
+
+
+

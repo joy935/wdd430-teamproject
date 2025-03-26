@@ -12,6 +12,7 @@ module.exports = {
           darkPurple: '#3B1D5E',
           electricBlue: '#7F3FFC',
           neonPink: '#F14BBF',
+          neonPinkDark: "#be185d", 
           errorRed: '#E63946',
           fgLight: '#EDEDED',
           fgDark: '#171717',

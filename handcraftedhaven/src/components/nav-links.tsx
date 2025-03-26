@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { HomeIcon, List, ShoppingBag, InfoIcon } from "lucide-react";
 
 const links = [
-  { name: "Home", href: "/home", icon: HomeIcon },
+  { name: "Home", href: "/", icon: HomeIcon },
   { name: "Products", href: "/products", icon: ShoppingBag },
   { name: "Sellers", href: "/sellers", icon: List },
   { name: "About", href: "/about", icon: InfoIcon },
