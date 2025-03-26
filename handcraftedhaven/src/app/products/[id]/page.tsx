@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { useState, useEffect } from "react";
+import { use } from "react";
 
 
 interface ProductPageProps {
@@ -14,8 +15,9 @@ interface ProductPageProps {
 }
 
 
-export default function ProductDetailPage({ params }: ProductPageProps) {
-  const id = parseInt(params.id);
+export default function ProductDetailPage({ params }:  {params: Promise<ProductPageProps["params"]>}) {
+  const resolvedParams = use(params);
+  const id = parseInt(resolvedParams.id);
 
 
   const [product, setProduct] = useState<any>(null);
