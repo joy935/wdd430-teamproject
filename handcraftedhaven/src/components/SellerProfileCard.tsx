@@ -10,6 +10,8 @@ interface SellerProfileCardProps {
         rating: string;
         sales: string;
         bio: string;
+        story: string;
+        contact: string;
     };
 }
 
@@ -27,7 +29,8 @@ export default function SellerProfileCard({ seller }: SellerProfileCardProps) {
             <p className="text-gray-500">
                 {seller.name} — {seller.location}
             </p>
-            <p className="text-sm text-gray-600 mt-2">{seller.bio}</p>
+            <p className="text-sm text-gray-600 mt-2">{seller.story}</p>
+            <p className="text-sm text-gray-600 mt-2">Contact me: {seller.contact}</p>
             <p className="text-xs text-gray-400 mt-1">
                 ⭐ {seller.rating} • {seller.sales} sales
             </p>

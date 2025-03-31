@@ -27,10 +27,10 @@ export default function SellerCard({ seller }: SellerProps) {
             <img
             src={seller.profileImage}
             alt={seller.name}
-            className="w-16 h-16 rounded-full object-cover border-2 border-electricBlue"
+            className="w-16 h-16 rounded-full object-cover border-2 border-neonPink"
             />
             <div>
-            <h3 className="text-lg font-bold font-poppins text-darkPurple group-hover:text-electricBlue transition-colors">
+            <h3 className="text-lg font-bold font-poppins text-darkPurple group-hover:text-neonPink transition-colors">
                 {seller.name}
             </h3>
             <p className="text-sm text-gray-500">{seller.shopName}</p>
@@ -50,19 +50,10 @@ export default function SellerCard({ seller }: SellerProps) {
             {/* View shop button */}
             <Link href={`/sellers/${seller.id}`}>
             <Button
-                variant="product"
-                className="w-full group-hover:bg-electricBlue group-hover:text-white transition-colors duration-300"
+                variant="seller"
+                className="w-full group-hover:bg-neonPink group-hover:text-white transition-colors duration-300"
             >
                 <span>Visit Shop</span>
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
             </Button>
             </Link>
         </div>
