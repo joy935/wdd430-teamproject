@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { HomeIcon, List, ShoppingBag, InfoIcon } from "lucide-react";
+import { HomeIcon, Store, ShoppingBag, InfoIcon } from "lucide-react";
 
 const links = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "Products", href: "/products", icon: ShoppingBag },
-  { name: "Sellers", href: "/sellers", icon: List },
+  { name: "Sellers", href: "/sellers", icon: Store },
   { name: "About", href: "/about", icon: InfoIcon },
 ];
 
@@ -24,9 +24,9 @@ export default function Nav() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex items-center gap-2 p-3 text-white rounded-lg hover:bg-electricBlue",
+              "flex items-center gap-2 p-3 text-white rounded-lg hover:bg-electricBlue transition-colors",
               {
-                "bg-electricBlue": pathname === link.href, // highlight active link later
+                "bg-electricBlue": pathname === link.href,
               }
             )}
           >

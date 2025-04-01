@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "./nav-links";
 import { Button } from "./ui/Button";
+import CartButton from "./CartButton";
 
 export default function Header() {
     return (
@@ -11,13 +12,16 @@ export default function Header() {
                 
                 <Nav />
 
-                <div className="flex space-x-4">
+                <div className="flex items-center space-x-4">
+                    <CartButton />
                     <Link href="/login" >
-                        <Button variant="login">Login</Button></Link>
+                        <Button variant="login">Login</Button>
+                    </Link>
                     <Link href="/register" >
-                        <Button variant="register">Register</Button></Link>
+                        <Button variant="register">Register</Button>
+                    </Link>
                 </div>
-          </div>
+            </div>
         </header>
     );
 }
