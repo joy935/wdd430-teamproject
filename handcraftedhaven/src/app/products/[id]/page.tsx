@@ -2,6 +2,7 @@
 
 
 import productData from "@/lib/mock-products.json";
+import ProductReviews from "@/components/ProductReviews";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +23,6 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
 
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const foundProduct = productData.find((p) => p.id === id);
@@ -123,7 +123,7 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
                 <div className="flex items-center mb-6">
                   <div className="mr-4">
                     <label htmlFor="quantity-select"
-                           className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+                      className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
                     <select
                       id="quantity-select"
                       name="quantity"
@@ -178,7 +178,9 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
             </div>
           </div>
         </div>
-
+        
+        {/* Product Reviews */}
+        <ProductReviews productId={product.id} />
 
         {/* Suggested Products */}
         <div className="mt-24">
