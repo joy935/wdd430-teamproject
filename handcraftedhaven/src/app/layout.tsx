@@ -3,6 +3,7 @@ import { Inter, Poppins, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { CartProvider } from "@/contexts/CartContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -33,15 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable} ${firaCode.variable}`}>
-        
-        <Header />
-        
-        <main>
-          {children}
-        </main>
-        
-        <Footer />
-      
+        <CartProvider>
+          <Header />
+          
+          <main>
+            {children}
+          </main>
+          
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
