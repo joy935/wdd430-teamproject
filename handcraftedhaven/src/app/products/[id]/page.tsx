@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import productData from "@/lib/mock-products.json";
 import ProductReviews from "@/components/ProductReviews";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
@@ -17,9 +17,10 @@ type ProductDetailPageProps = {
   };
 };
 
-export default function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default function ProductDetailPage() {
 
-  const id = parseInt(params.id);
+  const params = useParams();
+  const id = parseInt(params.id as string);
   const { addToCart } = useCart();
   
   const [product, setProduct] = useState<any>(null);
