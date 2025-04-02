@@ -1,6 +1,7 @@
 "use client";
 
 import reviewData from "@/lib/reviews.json";
+import CreateReview from "./CreateReview";
 
 interface Review {
     id: number;
@@ -38,7 +39,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
         ) : (
             <>
             {/* Average rating display (move this to product detail page */}
-            <div className="flex items-center mb-4">
+            {/* <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
                 <svg
                     key={i}
@@ -56,7 +57,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                 {averageRating.toFixed(1)} ({productReviews.length}{" "}
                 {productReviews.length === 1 ? "review" : "reviews"})
                 </span>
-            </div>
+            </div> */}
 
             <div className="space-y-6">
                 {productReviews.map((review) => (
@@ -76,7 +77,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                         </span>
                     </div>
 
-                    {/* Review rating display */}
+                    {/* Rating display */}
                     <div className="flex items-center mb-1">
                     {[...Array(5)].map((_, i) => (
                     <svg
@@ -89,10 +90,14 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                     </svg>
                     ))}
                     </div>
-
+                    {/* Review display */}
                     <p className="text-gray-700">{review.comment}</p>
                 </div>
                 ))}
+
+                <div className="mt-4">
+                <CreateReview />
+                </div>
             </div>
             </>
         )}
