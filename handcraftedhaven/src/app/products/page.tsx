@@ -64,12 +64,12 @@ export default function ProductsPage() {
                   placeholder="Search by name or description..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-200 focus:ring-2 focus:ring-electricBlue focus:border-electricBlue transition-all duration-200"
+                  className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-700 focus:ring-2 focus:ring-electricBlue focus:border-electricBlue transition-all duration-200"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-600"
+                    className="h-5 w-5 text-gray-700"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -94,7 +94,7 @@ export default function ProductsPage() {
                   aria-label="Filter by Category"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-electricBlue focus:border-electricBlue bg-white transition-all duration-200"
+                  className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-electricBlue focus:border-electricBlue bg-white transition-all duration-200"
                 >
                   {categories.map((category) => (
                     <option key={category}>{category}</option>
@@ -102,7 +102,7 @@ export default function ProductsPage() {
                 </select>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <svg
-                    className="h-5 w-5 text-gray-600"
+                    className="h-5 w-5 text-gray-700"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
