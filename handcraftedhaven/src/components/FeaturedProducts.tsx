@@ -36,7 +36,7 @@ export default function FeaturedProducts() {
      
       <div className="container mx-auto px-4 relative">
         <div className="max-w-xl mx-auto text-center mb-16">
-          <span className="inline-block text-neonPink font-medium text-sm uppercase tracking-wider mb-2">Handpicked For You</span>
+          <span className="inline-block text-neonPinkDark font-medium text-sm uppercase tracking-wider mb-2">Handpicked For You</span>
           <h2 className="text-4xl font-poppins font-bold text-darkPurple mb-4">
             Featured Artisan Creations
           </h2>
@@ -62,7 +62,7 @@ export default function FeaturedProducts() {
                
                 {/* Category badge */}
                 <div className="absolute top-3 left-3 z-20">
-                  <span className="inline-block px-3 py-1 text-xs font-medium bg-neonPink text-white rounded-full shadow-md">
+                  <span className="inline-block px-3 py-1 text-xs font-medium bg-neonPinkDark text-white rounded-full shadow-md">
                     {product.category}
                   </span>
                 </div>
@@ -84,7 +84,7 @@ export default function FeaturedProducts() {
                 </h3>
                
                 <div className="flex justify-between items-center mt-2">
-                  <span className="text-lg font-bold text-neonPink">
+                  <span className="text-lg font-bold text-neonPinkDark">
                   ${typeof product.price === 'number' ? product.price.toFixed(2) : '0.00'}
                   </span>
                  
