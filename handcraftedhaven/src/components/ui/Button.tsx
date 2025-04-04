@@ -13,11 +13,11 @@ export function Button({ children, variant, className, ...rest }: ButtonProps) {
         "px-4 py-2 rounded transition",
         {
             "border border-electricBlue hover:bg-electricBlue" : variant === "login",
-            "bg-neonPink hover:bg-electricBlue" : variant === "register",
+            "bg-neonPinkDark hover:bg-electricBlue" : variant === "register",
             "bg-electricBlue text-white hover:bg-neonPink" : variant === "primary",
-            "bg-backgroundDark border border-neonPink text-white hover:bg-neonPink" : variant === "secondary",
+            "bg-backgroundDark border border-neonPink text-white hover:bg-neonPinkDark" : variant === "secondary",
             "w-full py-2 border border-electricBlue text-electricBlue rounded hover:bg-electricBlue hover:text-white transition-colors" : variant === "product",
-            "w-full py-2 border border-neonPink text-neonPink rounded hover:bg-neonPink hover:text-white transition-colors" : variant === "seller",
+            "w-full py-2 border border-neonPink text-neonPink rounded hover:bg-neonPinkDark hover:text-white transition-colors" : variant === "seller",
         },
         className,
       )}

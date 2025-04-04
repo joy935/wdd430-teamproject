@@ -35,7 +35,7 @@ export default function SellerDetailPage() {
             <div className="mb-8">
                 <Link 
                 href="/sellers"
-                className="inline-flex items-center text-electricBlue hover:text-neonPink">
+                className="inline-flex items-center text-electricBlue hover:text-neonPinkDark">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

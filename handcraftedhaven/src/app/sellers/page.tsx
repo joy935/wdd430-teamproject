@@ -22,7 +22,7 @@ return (
                 Meet Our Artisans
                 <span className="absolute left-0 w-full h-1 bg-gradient-to-r from-electricBlue to-neonPink bottom-[-8px]"></span>
                 </h1>
-                <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
+                <p className="text-gray-700 mt-3 max-w-2xl mx-auto">
                 Discover unique shops and creators from around the world.</p>
             </div>
 
