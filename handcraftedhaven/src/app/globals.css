@@ -32,3 +32,10 @@ code {
     @apply border border-darkPurple text-darkPurple hover:bg-darkPurple hover:text-white font-medium py-2 px-6 rounded-md transition-colors;
   }
 }
+
+@layer utilities {
+  .progress-step-0 { width: 0%; }
+  .progress-step-1 { width: 33.33%; }
+  .progress-step-2 { width: 66.66%; }
+  .progress-step-3 { width: 100%; }
+}

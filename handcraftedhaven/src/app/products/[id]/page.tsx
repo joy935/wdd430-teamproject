@@ -1,28 +1,32 @@
 "use client";
 
-
+import { useState, useEffect } from "react";
 import productData from "@/lib/mock-products.json";
-import { notFound } from "next/navigation";
+import ProductReviews from "@/components/ProductReviews";
+import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { useState, useEffect } from "react";
-import { use } from "react";
+import { useCart } from "@/contexts/CartContext";
+import { CheckCircle, ShoppingBag } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
+type ProductDetailPageProps = {
+  params: {
+    id: string;
+  };
+};
 
-interface ProductPageProps {
-  params: { id: string };
-}
+export default function ProductDetailPage() {
 
-
-export default function ProductDetailPage({ params }:  {params: Promise<ProductPageProps["params"]>}) {
-  const resolvedParams = use(params);
-  const id = parseInt(resolvedParams.id);
-
-
+  const params = useParams();
+  const id = parseInt(params.id as string);
+  const { addToCart } = useCart();
+  
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
+  const [quantity, setQuantity] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const foundProduct = productData.find((p) => p.id === id);
@@ -32,7 +36,6 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
     setLoading(false);
   }, [id]);
 
-
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -41,9 +44,17 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
     );
   }
 
-
   if (!product) return notFound();
 
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    setAddedToCart(true);
+    
+    // Reset notification after 3 seconds
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 3000);
+  };
 
   return (
     <section className="py-16 bg-gray-50">
@@ -53,18 +64,15 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
           className="inline-flex items-center text-electricBlue hover:text-neonPink mb-8"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+              strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
             <path strokeLinecap="round" strokeLinejoin="round"
                   d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
           </svg>
           Back to all products
         </Link>
 
-
         <div className="bg-white shadow-md rounded-2xl p-8 md:p-12">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-
-
             {/* Image Section */}
             <div className="relative overflow-hidden rounded-lg">
               <div className="absolute top-4 left-4 z-10">
@@ -83,7 +91,6 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
                 />
               </div>
             </div>
-
 
             {/* Product Details Section */}
             <div className="space-y-8">
@@ -107,30 +114,29 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
                 </div>
               </div>
 
-
               <div className="border-t border-b border-gray-200 py-6">
                 <p className="text-3xl font-bold text-electricBlue">${product.price.toFixed(2)}</p>
               </div>
-
 
               <div>
                 <h2 className="text-lg font-semibold text-darkPurple mb-2">Description</h2>
                 <p className="text-gray-700">{product.description}</p>
               </div>
 
-
               <div className="pt-4">
                 <div className="flex items-center mb-6">
                   <div className="mr-4">
                     <label htmlFor="quantity-select"
-                           className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+                      className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
                     <select
                       id="quantity-select"
                       name="quantity"
+                      value={quantity}
+                      onChange={(e) => setQuantity(parseInt(e.target.value))}
                       aria-label="Product quantity"
                       className="border border-gray-300 rounded-md p-2 w-20"
                     >
-                      {[1, 2, 3, 4, 5].map(num => (
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                         <option key={num} value={num}>{num}</option>
                       ))}
                     </select>
@@ -144,9 +150,13 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
                   </div>
                 </div>
 
-
                 <div className="flex space-x-4">
-                  <Button variant="primary" className="flex-1 py-3">
+                  <Button 
+                    variant="primary" 
+                    className="flex-1 py-3 flex items-center justify-center gap-2" 
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingBag size={18} />
                     Add to Cart
                   </Button>
                   <button
@@ -154,31 +164,47 @@ export default function ProductDetailPage({ params }:  {params: Promise<ProductP
                     aria-label="Add to wishlist"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="w-6 h-6 text-neonPink">
-                      <path strokeLinecap="round" strokeLinejoin="round"
-                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                    </svg>
-                  </button>
-                </div>
+                        viewBox="0 0 24 24" strokeWidth={1.5}
+                        stroke="currentColor" className="w-6 h-6 text-neonPink">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                  </svg>
+                </button>
               </div>
-
+              
+                {/* Added to cart notification */}
+                <AnimatePresence>
+                  {addedToCart && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="mt-4 bg-green-50 border border-green-100 rounded-md p-3 flex items-center text-green-700"
+                    >
+                      <CheckCircle size={18} className="mr-2" />
+                      <span className="text-sm font-medium">Added to cart successfully!</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <div className="bg-gray-50 p-4 rounded-lg">
                 <div className="flex items-center text-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                       viewBox="0 0 24 24" strokeWidth={1.5}
-                       stroke="currentColor" className="w-5 h-5 text-electricBlue mr-2">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.56 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
-                  </svg>
-                  <span className="text-gray-700">Free shipping on orders over $50</span>
+                      viewBox="0 0 24 24" strokeWidth={1.5}
+                      stroke="currentColor" className="w-5 h-5 text-electricBlue mr-2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.56 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
+                </svg>
+                <span className="text-gray-700">Free shipping on orders over $50</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+        
+        {/* Product Reviews */}
+        <ProductReviews productId={product.id} />
 
         {/* Suggested Products */}
         <div className="mt-24">
