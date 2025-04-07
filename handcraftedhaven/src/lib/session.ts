@@ -22,12 +22,12 @@ export async function encrypt(payload: SessionPayload) {
 and retrieve the payload. It is called when the user makes a request
 to the server and the session token is included in the request headers.
 The payload contains the user ID and the expiration time of the session. */
-export async function decrypt(session: string | undefined = "") {
+export async function decrypt(session: string | undefined = ""): Promise<SessionPayload | undefined> {
     try {
         const { payload } = await jwtVerify(session, encodedKey, {
             algorithms: ["HS256"],
         })
-        return payload 
+        return payload as SessionPayload;
     } catch (error) {
         console.error("Session decryption error:", error);
     }
@@ -37,7 +37,7 @@ export async function decrypt(session: string | undefined = "") {
 after they log in or register. It sets a cookie with the session
 information, which is used to authenticate the user on subsequent requests.
 The session is valid for 7 days, after which the user will need to log in again. */
-export async function createSession(userId: string) {
+export async function createSession(userId: number) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     const session = await encrypt({ userId, expiresAt });
     const cookieStore = await cookies();
@@ -57,7 +57,7 @@ of the session cookie to keep the user logged in.
 It is called on every request to the server to ensure
 that the session is valid and the user is still active. */
 export async function updateSession() {
-    const session = (await cookies().get("session"))?.value;
+    const session = (cookies().get("session"))?.value;
     const payload = await decrypt(session);
 
     if (!session || !payload) {
@@ -66,7 +66,7 @@ export async function updateSession() {
 
     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     cookieStore.set("session", session, {
         httpOnly: true,
         secure: true,

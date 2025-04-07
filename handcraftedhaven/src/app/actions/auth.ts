@@ -1,10 +1,9 @@
 "use server";
 
 import { SignupFormSchema, FormState, LoginFormSchema } from "@/lib/definitions";
-import bcryptjs from "bcryptjs";
 import { createSession, deleteSession } from "@/lib/session";
-import { sql } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { createUser, findUserByEmail, validatePassword } from "@/services/authServices";
 
 export async function signup(state: FormState, formData: FormData) {
 
@@ -22,16 +21,9 @@ export async function signup(state: FormState, formData: FormData) {
         }
     }
 
-    // Prepare data for insertion into the database
+    // Prepare data and create a new user
     const { name, email, password } = validatedFields.data;
-    const hashedPassword = await bcryptjs.hash(password, 10);
-
-    // Insert the user into the database
-    const data = await sql
-        `INSERT INTO users (name, email, password)
-        VALUES (${name}, ${email}, ${hashedPassword})
-        RETURNING id;`
-    const user = data[0];
+    const user = await createUser(name, email, password);
 
     // If the user wasn't created successfully, return an error message
     if (!user) {
@@ -63,9 +55,8 @@ export async function login(state: FormState, formData: FormData) {
 
     // Compare the password with the hashed password in the database
     const { email, password } = validatedFields.data;
-    const data = await sql
-        `SELECT * FROM users WHERE email = ${email};`
-    const user = data[0];
+    const user = await findUserByEmail(email);
+
     if (!user) {
         return {
             errors: {
@@ -73,7 +64,8 @@ export async function login(state: FormState, formData: FormData) {
             },
         }
     }
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid = await validatePassword(password, user.password);
+
     if (!isPasswordValid) {
         return {
             errors: {
