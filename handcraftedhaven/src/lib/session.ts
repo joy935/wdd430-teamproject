@@ -56,25 +56,25 @@ when the user is still active. It refreshes the expiration time
 of the session cookie to keep the user logged in.
 It is called on every request to the server to ensure
 that the session is valid and the user is still active. */
-export async function updateSession() {
-    const session = (cookies().get("session"))?.value;
-    const payload = await decrypt(session);
+// export async function updateSession() {
+//     const session = (cookies().get("session"))?.value;
+//     const payload = await decrypt(session);
 
-    if (!session || !payload) {
-        return null;
-    }
+//     if (!session || !payload) {
+//         return null;
+//     }
 
-    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+//     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    const cookieStore = cookies();
-    cookieStore.set("session", session, {
-        httpOnly: true,
-        secure: true,
-        expires,
-        sameSite: "lax",
-        path: "/",
-    })
-}
+//     const cookieStore = cookies();
+//     cookieStore.set("session", session, {
+//         httpOnly: true,
+//         secure: true,
+//         expires,
+//         sameSite: "lax",
+//         path: "/",
+//     })
+// }
 
 /* This function is used to delete the session cookie
 when the user logs out. It removes the session information
