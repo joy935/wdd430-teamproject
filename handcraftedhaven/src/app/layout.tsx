@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackServerApp } from "../stack";
 import { Inter, Poppins, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
@@ -33,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${poppins.variable} ${firaCode.variable}`}>
+      <body className={`${inter.variable} ${poppins.variable} ${firaCode.variable}`}><StackProvider app={stackServerApp}><StackTheme>
         <CartProvider>
           <Header />
           
@@ -43,7 +45,7 @@ export default function RootLayout({
           
           <Footer />
         </CartProvider>
-      </body>
+      </StackTheme></StackProvider></body>
     </html>
   );
 }
